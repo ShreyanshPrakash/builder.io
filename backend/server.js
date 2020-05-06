@@ -1,10 +1,23 @@
 const express = require('express');
+const path = require('path');
+const fs = require('fs');
+
 const { connectToDatabase } = require('./mongoDB/controller');
 
 
 
 const PORT = 4200;
 const app = express();
+
+
+app.use(
+    express.static(
+        path.join(
+            __dirname, '../', 'build'
+        )
+    )
+)
+
 
 app.get('/getData', async ( req, res ) => {
 
@@ -23,6 +36,18 @@ app.get('/getData', async ( req, res ) => {
         })
     }
     
+})
+
+
+app.get( '**', ( req, res ) => {
+
+    console.log( req.url );
+    fs.createReadStream(
+        path.join(
+            __dirname, '../', 'build', 'index.html'
+        )
+    ).pipe( res )
+
 })
 
 
