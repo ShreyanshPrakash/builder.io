@@ -6,7 +6,7 @@ const { connectToDatabase } = require('./mongoDB/controller');
 
 
 
-const PORT = 4200;
+const PORT = 80;
 const app = express();
 
 
